@@ -1,21 +1,143 @@
-// version
+# Semantic Versioning (SemVer)
+Version Format:
 
-example:- 4.18.2
+MAJOR.MINOR.PATCH
 
-1st part = 4
-2nd part = 18
-3rd part = 2
+Example: 4.18.2
 
-//3rd part(Last Part) -> minor fixes (optional update)
+* MAJOR = 4
+* MINOR = 18
+* PATCH = 2
 
-// 2nd part - recomended bug fix(security fix)
+## 1. MAJOR Version (First Part)
+Example:
+4.18.2
+↑
 
-//1st part -> Major/Breaking Release
+Purpose:
 
+* Major release
+* Breaking changes
+* Existing code may stop working
+* Migration may be required
 
-charAt symbol ('^')
+Example Update:
+4.18.2 → 5.0.0
 
-express = ^4.18.2
-4th version 
+---
 
-^4.18.2 
+## 2. MINOR Version (Second Part)
+
+Example:
+
+4.18.2
+↑
+
+Purpose:
+
+* New features added
+* Recommended bug fixes
+* Security fixes
+* Backward compatible
+
+Example Update:
+4.18.2 → 4.19.0
+
+---
+
+## 3. PATCH Version (Third Part)
+
+Example:
+
+4.18.2
+↑
+
+Purpose:
+
+* Minor bug fixes
+* Hotfixes
+* Small improvements
+* Optional update
+
+Example Update:
+4.18.2 → 4.18.3
+
+---
+
+# Caret (^) Symbol
+
+Example:
+
+"express": "^4.18.2"
+
+Meaning:
+
+^4.18.2
+
+* Major version (4) is locked.
+* Minor and Patch updates are allowed.
+
+Allowed:
+
+* 4.18.3
+* 4.19.0
+* 4.25.1
+
+Not Allowed:
+
+* 5.0.0
+
+Rule:
+
+^4.18.2
+=> >= 4.18.2 < 5.0.0
+
+Summary:
+
+* PATCH updates allowed ✅
+* MINOR updates allowed ✅
+* MAJOR updates not allowed ❌
+
+Simple Meaning:
+^4.18.2 means "keep using version 4, but automatically allow all compatible minor and patch updates within version 4."
+
+## Tilde (~) Symbol
+
+Example:
+
+"express": "~4.18.2"
+
+Meaning:
+
+~4.18.2
+
+* Major version (4) is locked.
+* Minor version (18) is also locked.
+* Only Patch updates are allowed.
+
+Allowed:
+
+* 4.18.3
+* 4.18.4
+* 4.18.10
+
+Not Allowed:
+
+* 4.19.0
+* 4.20.0
+* 5.0.0
+
+Rule:
+
+~4.18.2
+=> >= 4.18.2 < 4.19.0
+
+Summary:
+
+* PATCH updates allowed ✅
+* MINOR updates not allowed ❌
+* MAJOR updates not allowed ❌
+
+Simple Meaning:
+
+~4.18.2 means "keep using version 4.18, and only allow patch (bug-fix) updates."
