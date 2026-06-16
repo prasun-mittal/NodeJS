@@ -1,0 +1,21 @@
+// version
+
+example:- 4.18.2
+
+1st part = 4
+2nd part = 18
+3rd part = 2
+
+//3rd part(Last Part) -> minor fixes (optional update)
+
+// 2nd part - recomended bug fix(security fix)
+
+//1st part -> Major/Breaking Release
+
+
+charAt symbol ('^')
+
+express = ^4.18.2
+4th version 
+
+^4.18.2 
