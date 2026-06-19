@@ -1,7 +1,11 @@
 const express=require('express');
+const fs=require('fs')
 const users=require('./MOCK_DATA.json');
 const app=express();
 const PORT=8000;
+
+// Middleware - plugin
+app.use(express.urlencoded({extended: false}));
 
 //ROUTES
 app.get('/api/users',(req,res)=>{
@@ -24,17 +28,47 @@ app.route('/api/users/:id')
 })
 .patch((req,res) => {
     // edit user with id
-    return res.json({ status:"Pending"});
+    const id=Number(req.params.id);
+     const body =req.body;
+     const index=users.findIndex(user => user.id===id);
+    if(index === -1){
+        return res.status(404).json({
+            message:"User not found"
+        });
+    }
+    users[index]={
+        ...users[index],
+        ...body
+    };
+    fs.writeFile('./MOCK_DATA.json',
+        JSON.stringify(users),
+        (err)=>{
+            return res.json({
+                status:"Success"
+            });
+    });
 })
 .delete((req,res)=>{
     // delete user with id
-    return res.json({ status:"Pending"});
+    const id=Number(req.params.id);
+    const index=users.findIndex(user=>user.id===id);
+    users.splice(index,1);
+    fs.writeFile('./MOCK_DATA.json',JSON.stringify(users),(err)=>{
+        return res.json({
+            status:"Success"
+        });
+    });
 });
 
 
 app.post('/api/users',(req,res)=>{
     // todo : create new user
-    return res.json({ status:"Pending"});
+    const body =req.body;
+    users.push({...body, id:users.length+1});
+    fs.writeFile('./MOCK_DATA.json',JSON.stringify(users), (err,data)=>{
+        return res.json({ status:"Success",id:users.length});
+    })
+    
 })
 
 
