@@ -1,6 +1,7 @@
 const express=require('express');
 const fs=require('fs')
 const users=require('./MOCK_DATA.json');
+const { log } = require('console');
 const app=express();
 const PORT=8000;
 
@@ -28,6 +29,10 @@ app.use((req,res,next)=>{
 
 //ROUTES
 app.get('/api/users',(req,res)=>{
+    // res.setHeader('myname',"Prasun Mittal");
+    // always add X to custom header like 'X-Myname'   // Good Practice
+    // console.log(req.headers);
+    
     return res.json(users);
 })
 app.get('/users',(req,res)=>{
