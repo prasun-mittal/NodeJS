@@ -7,6 +7,25 @@ const PORT=8000;
 // Middleware - plugin
 app.use(express.urlencoded({extended: false}));
 
+app.use((req,res,next)=>{
+    fs.appendFile('log.txt',`${Date.now()}:${req.ip} ${req.method}: ${req.path}\n`,(err,data)=>{
+        next();
+    })
+    // return res.json({msg: "Hello from middleware 1"})   // isme hamne res ko yji end kar dia next tak jane nhi dia
+})
+/*
+app.use((req,res,next)=>{
+    console.log("Hello from middleware 2",req.myUsername);
+    return res.end("Hey")
+    // Request ko yahi terminate kar diya.
+    // next() nahi hai, isliye control aage nahi jayega.
+})
+*/
+app.use((req,res,next)=>{
+    console.log("Hello from middleware 2");
+    next();
+})
+
 //ROUTES
 app.get('/api/users',(req,res)=>{
     return res.json(users);
