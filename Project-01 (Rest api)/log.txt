@@ -5,3 +5,9 @@
 1781949897872: DELETE: /api/users/1003
 1781949904099: GET: /api/users
 1781949978153:::1 GET: /api/users
+1782042352273:::1 POST: /api/users
+1782042368816:::1 POST: /api/users
+1782042405934:::1 POST: /api/users
+1782042683514:::1 GET: /api/users/5001
+1782042692218:::1 GET: /api/users/1003
+1782042699371:::1 GET: /api/users/

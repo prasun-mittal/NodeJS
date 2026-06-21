@@ -48,6 +48,9 @@ app.route('/api/users/:id')
 .get((req,res)=>{
     const id=Number(req.params.id);
     const user =users.find((user) => user.id === id);
+    if(!user){
+        return res.status(404).json({error:"User not found"});  // If user does not exist, return 404 Not Found
+    }
     return res.json(user);
 })
 .patch((req,res) => {
@@ -86,14 +89,27 @@ app.route('/api/users/:id')
 
 
 app.post('/api/users',(req,res)=>{
-    // todo : create new user
+
+    // Input validation
+    // Check kar rahe hain ki required fields request body me present hain ya nahi.
+    // Agar koi bhi field missing hai to 400 Bad Request return kar do.
+
     const body =req.body;
+    if(!body || !body.first_name || !body.email || !body.last_name || !body.gender || !body.job_title){
+        return res.status(400).json({msg: "All fields are required"});
+    }
     users.push({...body, id:users.length+1});
     fs.writeFile('./MOCK_DATA.json',JSON.stringify(users), (err,data)=>{
-        return res.json({ status:"Success",id:users.length});
-    })
-    
+        return res.status(201).json({ status:"Success",id:users.length});   // New user successfully create hua hai, isliye 201 status code return kar rahe hain.
+    })   
 })
+/*
+    200 → OK (GET, PATCH, DELETE)
+    201 → Created (POST)
+    400 →  User ne galat ya incomplete input bheja
+    404 → Not Found
+    500 → Internal Server Error
+*/
 
 
-app.listen(PORT,()=> console.log(`Server started at port: ${PORT}`));
+app.listen(PORT,()=> console.log(`Server started at port: ${PORT}`));2
